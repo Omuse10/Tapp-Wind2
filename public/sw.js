@@ -23,7 +23,10 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("fetch", (event) => {
   const request = event.request;
 
-  if (request.method !== "GET") return;
+  // Only handle normal HTTP(S) GET requests.
+  if (request.method !== "GET" || (request.url && !request.url.startsWith("http"))) {
+    return;
+  }
 
   event.respondWith(
     fetch(request)
@@ -32,7 +35,9 @@ self.addEventListener("fetch", (event) => {
           const copy = response.clone();
 
           caches.open(CACHE_NAME).then((cache) => {
-            cache.put(request, copy);
+            cache.put(request, copy).catch(() => {
+              // Ignore requests that the Cache API cannot store.
+            });
           });
         }
 
