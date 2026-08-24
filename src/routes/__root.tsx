@@ -10,6 +10,7 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import { registerOfflineSupport } from "@/lib/journey/offline-sw";
+import { InstallWindsongGate, InstallWindsongProvider } from "@/components/journey/InstallWindsong";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -141,10 +142,14 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <JourneyProvider>
-        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-        <main>
-          <Outlet />
-        </main>
+        <InstallWindsongProvider>
+          <InstallWindsongGate>
+            {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+            <main>
+              <Outlet />
+            </main>
+          </InstallWindsongGate>
+        </InstallWindsongProvider>
       </JourneyProvider>
     </QueryClientProvider>
   );

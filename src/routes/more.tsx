@@ -4,6 +4,7 @@ import { useState } from "react";
 import { AppShell, BrandHeader, ConnectionStatus, PoweredByTapp } from "@/components/journey/AppShell";
 import { BackButton } from "@/components/journey/BackButton";
 import { BigButton, BigLink } from "@/components/journey/BigButton";
+import { InstallWindsongAction } from "@/components/journey/InstallWindsong";
 import { useJourney } from "@/lib/journey/store";
 
 export const Route = createFileRoute("/more")({
@@ -181,6 +182,7 @@ function More() {
           <BigButton variant="soft" onClick={resetAll}>
             Start again
           </BigButton>
+          <InstallWindsongAction />
         </Panel>
 
         <BigLink to="/staff" variant="outline" className="justify-start text-base">
