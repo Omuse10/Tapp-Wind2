@@ -1,4 +1,5 @@
 // Registers the offline service worker only in the published app.
+//
 // Never in the Lovable editor preview, an iframe, or development.
 
 function isPreviewHost(hostname: string) {
@@ -16,16 +17,24 @@ function isPreviewHost(hostname: string) {
 
 async function unregisterAppWorker() {
   if (!("serviceWorker" in navigator)) return;
+
   const registrations = await navigator.serviceWorker.getRegistrations();
+
   await Promise.allSettled(
     registrations
-      .filter((r) => (r.active?.scriptURL ?? r.installing?.scriptURL ?? "").includes("/sw.js"))
+      .filter((r) =>
+        (r.active?.scriptURL ?? r.installing?.scriptURL ?? r.waiting?.scriptURL ?? "").includes(
+          "/sw.js",
+        ),
+      )
       .map((r) => r.unregister()),
   );
 }
 
 export function registerOfflineSupport() {
-  if (typeof window === "undefined" || !("serviceWorker" in navigator)) return;
+  if (typeof window === "undefined" || !("serviceWorker" in navigator)) {
+    return;
+  }
 
   const refused =
     !import.meta.env.PROD ||
@@ -38,7 +47,23 @@ export function registerOfflineSupport() {
     return;
   }
 
-  void navigator.serviceWorker.register("/sw.js", { scope: "/" }).catch(() => {
-    // Offline support is a bonus; the app still works without it.
-  });
+  // Make sure the generated service worker actually exists before
+  // attempting to register it.
+  void fetch("/sw.js", {
+    method: "HEAD",
+    cache: "no-store",
+  })
+    .then((response) => {
+      if (!response.ok) {
+        console.warn(`[offline] Service worker unavailable: ${response.status}`);
+        return;
+      }
+
+      return navigator.serviceWorker.register("/sw.js", { scope: "/" }).catch((error) => {
+        console.warn("[offline] Service worker registration failed:", error);
+      });
+    })
+    .catch(() => {
+      // Offline support is optional; the app still works without it.
+    });
 }
