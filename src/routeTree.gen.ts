@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AddMemoryRouteImport } from './routes/add-memory'
 import { Route as AnimalsRouteImport } from './routes/animals'
+import { Route as DocumentsRouteImport } from './routes/documents'
 import { Route as FullJourneyRouteImport } from './routes/full-journey'
 import { Route as GuideRouteImport } from './routes/guide'
 import { Route as HomeRouteImport } from './routes/home'
@@ -42,6 +43,11 @@ const AddMemoryRoute = AddMemoryRouteImport.update({
 const AnimalsRoute = AnimalsRouteImport.update({
   id: '/animals',
   path: '/animals',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocumentsRoute = DocumentsRouteImport.update({
+  id: '/documents',
+  path: '/documents',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FullJourneyRoute = FullJourneyRouteImport.update({
@@ -129,6 +135,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/add-memory': typeof AddMemoryRoute
   '/animals': typeof AnimalsRoute
+  '/documents': typeof DocumentsRoute
   '/full-journey': typeof FullJourneyRoute
   '/guide': typeof GuideRoute
   '/home': typeof HomeRoute
@@ -150,6 +157,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/add-memory': typeof AddMemoryRoute
   '/animals': typeof AnimalsRoute
+  '/documents': typeof DocumentsRoute
   '/full-journey': typeof FullJourneyRoute
   '/guide': typeof GuideRoute
   '/home': typeof HomeRoute
@@ -170,6 +178,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/add-memory': typeof AddMemoryRoute
   '/animals': typeof AnimalsRoute
+  '/documents': typeof DocumentsRoute
   '/full-journey': typeof FullJourneyRoute
   '/guide': typeof GuideRoute
   '/home': typeof HomeRoute
@@ -193,6 +202,7 @@ export interface FileRouteTypes {
     | '/'
     | '/add-memory'
     | '/animals'
+    | '/documents'
     | '/full-journey'
     | '/guide'
     | '/home'
@@ -214,6 +224,7 @@ export interface FileRouteTypes {
     | '/'
     | '/add-memory'
     | '/animals'
+    | '/documents'
     | '/full-journey'
     | '/guide'
     | '/home'
@@ -233,6 +244,7 @@ export interface FileRouteTypes {
     | '/'
     | '/add-memory'
     | '/animals'
+    | '/documents'
     | '/full-journey'
     | '/guide'
     | '/home'
@@ -255,6 +267,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AddMemoryRoute: typeof AddMemoryRoute
   AnimalsRoute: typeof AnimalsRoute
+  DocumentsRoute: typeof DocumentsRoute
   FullJourneyRoute: typeof FullJourneyRoute
   GuideRoute: typeof GuideRoute
   HomeRoute: typeof HomeRoute
@@ -290,6 +303,13 @@ declare module '@tanstack/react-router' {
       path: '/animals'
       fullPath: '/animals'
       preLoaderRoute: typeof AnimalsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/documents': {
+      id: '/documents'
+      path: '/documents'
+      fullPath: '/documents'
+      preLoaderRoute: typeof DocumentsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/full-journey': {
@@ -438,6 +458,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AddMemoryRoute: AddMemoryRoute,
   AnimalsRoute: AnimalsRoute,
+  DocumentsRoute: DocumentsRoute,
   FullJourneyRoute: FullJourneyRoute,
   GuideRoute: GuideRoute,
   HomeRoute: HomeRoute,

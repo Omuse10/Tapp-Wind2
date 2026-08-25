@@ -36,6 +36,9 @@ function Profile() {
       </header>
 
       <div className="px-6 pt-6">
+        <BigLink to="/documents" variant="soft" className="mb-4 justify-start">
+          📄 My documents
+        </BigLink>
         {mine.length === 0 ? (
           <div className="rounded-3xl bg-card p-8 text-center shadow-[var(--shadow-card)]">
             <p className="text-5xl">📸</p>
