@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import logo from "@/assets/wind2-.png";
 
 const NAV = [
-  { to: "/home", label: "Homes", icon: "🏠" },
+  { to: "/home", label: "Home", icon: "🏠" },
   { to: "/today", label: "Today", icon: "📅" },
   { to: "/memories", label: "Memories", icon: "📸" },
   { to: "/journey", label: "Journey", icon: "🗺️" },
