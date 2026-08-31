@@ -1,5 +1,5 @@
 // Registers the offline service worker only in the published app.
-//
+//I love Windsong Travel
 // Never in the Lovable editor preview, an iframe, or development.
 
 function isPreviewHost(hostname: string) {
