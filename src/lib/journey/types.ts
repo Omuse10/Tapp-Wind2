@@ -133,6 +133,15 @@ export interface DailyUpdate {
   expiresAt: string;
 }
 
+export interface GroupMessage {
+  id: ID;
+  tripId: ID;
+  guestId: ID;
+  guestName: string;
+  text: string;
+  createdAt: string;
+}
+
 /** One pending change waiting to reach the backend when a signal returns. */
 export interface SyncOp {
   id: ID;
@@ -169,6 +178,7 @@ export interface JourneyData {
   guides: Guide[];
   drivers: Driver[];
   updates: DailyUpdate[];
+  groupMessages: GroupMessage[];
   syncQueue: SyncOp[];
   visits: VisitSession[];
   meGuestId: ID | null;

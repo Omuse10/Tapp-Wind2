@@ -227,6 +227,16 @@ export const seed: JourneyData = {
       about: "Joseph has driven Windsong groups across Kenya for nine years.",
     },
   ],
+  groupMessages: [
+    {
+      id: "gm-welcome",
+      tripId: "trip-africa-2026",
+      guestId: "g-sarah",
+      guestName: "Sarah",
+      text: "Looking forward to the game drives!",
+      createdAt: new Date().toISOString(),
+    },
+  ],
   updates: [
     {
       id: "upd-welcome",

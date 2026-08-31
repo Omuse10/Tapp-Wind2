@@ -61,9 +61,10 @@ function Panel({
 }
 
 function More() {
-  const { data, me, setName, resetAll } = useJourney();
+  const { data, me, setName, resetAll, sendGroupMessage } = useJourney();
   const [open, setOpen] = useState<string | null>(null);
   const [name, setLocalName] = useState(me?.name ?? "");
+  const [groupText, setGroupText] = useState("");
   const toggle = (id: string) => setOpen((cur) => (cur === id ? null : id));
 
   return (
@@ -85,6 +86,44 @@ function More() {
         <BigLink to="/full-journey" variant="soft" className="justify-start">
           🗺️ Full journey
         </BigLink>
+
+        <Panel id="chat" icon="💬" title="Group chat" open={open === "chat"} onToggle={() => toggle("chat")}>
+          <div className="space-y-3">
+            <div className="max-h-64 space-y-2 overflow-y-auto rounded-2xl bg-background p-3">
+              {data.groupMessages.length === 0 ? (
+                <p className="text-sm text-muted-foreground">No messages yet. Start the conversation.</p>
+              ) : (
+                [...data.groupMessages]
+                  .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
+                  .slice(-6)
+                  .map((msg) => (
+                    <div key={msg.id} className="rounded-2xl bg-secondary/40 p-2">
+                      <p className="text-xs font-bold uppercase tracking-[0.12em] text-muted-foreground">
+                        {msg.guestName}
+                      </p>
+                      <p className="mt-1 text-base text-foreground">{msg.text}</p>
+                    </div>
+                  ))
+              )}
+            </div>
+            <textarea
+              value={groupText}
+              onChange={(e) => setGroupText(e.target.value)}
+              rows={3}
+              placeholder="Message the group..."
+              className="min-h-20 w-full rounded-2xl border-2 border-input bg-background px-4 py-3 text-base text-foreground focus:border-primary focus:outline-none"
+            />
+            <BigButton
+              disabled={!groupText.trim()}
+              onClick={() => {
+                sendGroupMessage(groupText);
+                setGroupText("");
+              }}
+            >
+              Send message
+            </BigButton>
+          </div>
+        </Panel>
 
         <Panel
           id="contacts"

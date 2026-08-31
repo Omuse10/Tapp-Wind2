@@ -18,6 +18,7 @@ import type {
   DailyUpdate,
   DailyWord,
   Driver,
+  GroupMessage,
   Guest,
   Guide,
   ItineraryDay,
@@ -41,6 +42,7 @@ function migrate(parsed: Partial<JourneyData> & { guide?: Guide }): JourneyData 
   next.guides = next.guides ?? seed.guides;
   next.drivers = next.drivers ?? seed.drivers;
   next.updates = next.updates && next.updates.length > 0 ? next.updates : seed.updates;
+  next.groupMessages = next.groupMessages ?? seed.groupMessages;
   next.syncQueue = next.syncQueue ?? [];
   next.visits = next.visits ?? [];
   return next;
@@ -116,6 +118,7 @@ interface JourneyContextValue {
   updateSighting: (animalId: string, patch: Partial<AnimalSighting>) => void;
   publishUpdate: (input: { title: string; message: string; id?: string }) => void;
   deleteUpdate: (id: string) => void;
+  sendGroupMessage: (text: string) => void;
   addGuide: () => Guide;
   saveGuide: (id: string, patch: Partial<Guide>) => void;
   deleteGuide: (id: string) => void;
@@ -412,6 +415,24 @@ export function JourneyProvider({ children }: { children: ReactNode }) {
         };
       }),
     deleteUpdate: (id) => update((d) => ({ ...d, updates: d.updates.filter((u) => u.id !== id) })),
+    sendGroupMessage: (text) => {
+      const trimmed = text.trim();
+      if (!trimmed) return;
+      update((d) => ({
+        ...d,
+        groupMessages: [
+          ...d.groupMessages,
+          {
+            id: `msg-${Date.now()}`,
+            tripId: d.trip.id,
+            guestId: d.meGuestId ?? "me",
+            guestName: me?.name ?? "You",
+            text: trimmed,
+            createdAt: new Date().toISOString(),
+          },
+        ],
+      }));
+    },
     addGuide: () => {
       const guide: Guide = {
         id: `guide-${Date.now()}`,
