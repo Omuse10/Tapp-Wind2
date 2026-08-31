@@ -6,7 +6,7 @@ import { AppShell, BrandHeader, PoweredByTapp } from "@/components/journey/AppSh
 import { BackButton } from "@/components/journey/BackButton";
 import { BigButton, BigLink } from "@/components/journey/BigButton";
 import { supabase } from "@/integrations/supabase/client";
-import { useJourney } from "@/lib/journey/store";
+import { useJourney } from "@/lib/journey/journey-context";
 import {
   prefetchJourneyAssets,
   readJourneyCache,

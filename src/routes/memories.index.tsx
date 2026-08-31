@@ -4,7 +4,7 @@ import { AppShell, BrandHeader, ConnectionStatus, PoweredByTapp } from "@/compon
 import { BackButton } from "@/components/journey/BackButton";
 import { BigLink } from "@/components/journey/BigButton";
 import { resolveImage } from "@/lib/journey/images";
-import { formatShortDate, useJourney } from "@/lib/journey/store";
+import { formatShortDate, useJourney } from "@/lib/journey/journey-context";
 
 export const Route = createFileRoute("/memories/")({
   head: () => ({

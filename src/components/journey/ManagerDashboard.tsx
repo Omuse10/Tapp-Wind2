@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 
 import { compressImage, resolveImage } from "@/lib/journey/images";
-import { formatShortDate, useJourney } from "@/lib/journey/store";
+import { formatShortDate, useJourney } from "@/lib/journey/journey-context";
 import { signOutStaff } from "@/lib/staff/auth";
 import { StaffItinerary } from "@/components/journey/StaffItinerary";
 

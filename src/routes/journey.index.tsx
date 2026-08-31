@@ -3,7 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell, BrandHeader, PoweredByTapp } from "@/components/journey/AppShell";
 import { BackButton } from "@/components/journey/BackButton";
 import { resolveImage } from "@/lib/journey/images";
-import { useJourney } from "@/lib/journey/store";
+import { useJourney } from "@/lib/journey/journey-context";
 
 export const Route = createFileRoute("/journey/")({
   head: () => ({

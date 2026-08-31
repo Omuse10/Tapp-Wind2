@@ -5,7 +5,7 @@ import { PoweredByTapp } from "@/components/journey/AppShell";
 import { BigButton } from "@/components/journey/BigButton";
 import heroImg from "@/assets/hero-savanna.jpg";
 import logo from "@/assets/wind2-.png";
-import { useJourney } from "@/lib/journey/store";
+import { useJourney } from "@/lib/journey/journey-context";
 
 export const Route = createFileRoute("/")({
   head: () => ({

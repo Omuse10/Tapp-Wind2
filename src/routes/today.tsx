@@ -5,7 +5,7 @@ import { AppShell, BrandHeader, PoweredByTapp } from "@/components/journey/AppSh
 import { BackButton } from "@/components/journey/BackButton";
 import { BigButton, BigLink } from "@/components/journey/BigButton";
 import { LocationDialog } from "@/components/journey/LocationDialog";
-import { formatLongDateFromDate, useCurrentDate, useJourney } from "@/lib/journey/store";
+import { formatLongDateFromDate, useCurrentDate, useJourney } from "@/lib/journey/journey-context";
 import type { LocationRecord } from "@/lib/journey/types";
 
 export const Route = createFileRoute("/today")({

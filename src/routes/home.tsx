@@ -12,7 +12,7 @@ import {
 import { BigLink } from "@/components/journey/BigButton";
 import { TodaysUpdateCard, TodaysUpdatePopup } from "@/components/journey/TodaysUpdate";
 import { WordOfTheDay } from "@/components/journey/WordOfTheDay";
-import { formatLongDateFromDate, greeting, useCurrentDate, useJourney } from "@/lib/journey/store";
+import { formatLongDateFromDate, greeting, useCurrentDate, useJourney } from "@/lib/journey/journey-context";
 
 export const Route = createFileRoute("/home")({
   head: () => ({

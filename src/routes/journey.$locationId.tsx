@@ -5,7 +5,7 @@ import { BackButton } from "@/components/journey/BackButton";
 import { BigLink } from "@/components/journey/BigButton";
 import { MapsLink } from "@/components/journey/MapsLink";
 import { resolveImage } from "@/lib/journey/images";
-import { useJourney } from "@/lib/journey/store";
+import { useJourney } from "@/lib/journey/journey-context";
 
 export const Route = createFileRoute("/journey/$locationId")({
   head: () => ({

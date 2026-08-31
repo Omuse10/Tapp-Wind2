@@ -1,4 +1,4 @@
-import { useJourney } from "@/lib/journey/store";
+import { useJourney } from "@/lib/journey/journey-context";
 
 export function WordOfTheDay() {
   const { wordOfTheDay } = useJourney();

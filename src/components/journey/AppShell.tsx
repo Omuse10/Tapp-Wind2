@@ -1,7 +1,7 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 
-import { useJourney } from "@/lib/journey/store";
+import { useJourney } from "@/lib/journey/journey-context";
 import { cn } from "@/lib/utils";
 import logo from "@/assets/wind2-.png";
 
@@ -17,11 +17,7 @@ export function BrandHeader({ subtitle }: { subtitle?: string }) {
   const { data } = useJourney();
   return (
     <div className="px-6 pt-6 text-center">
-      <img
-        src={logo}
-        alt="Windsong Travel"
-        className="mx-auto h-20 w-auto object-contain"
-      />
+      <img src={logo} alt="Windsong Travel" className="mx-auto h-20 w-auto object-contain" />
       <p className="mt-1 text-sm font-semibold tracking-[0.3em] text-primary uppercase">
         {subtitle ?? data.trip.name}
       </p>

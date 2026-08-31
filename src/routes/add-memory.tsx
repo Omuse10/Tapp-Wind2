@@ -6,7 +6,7 @@ import { BackButton } from "@/components/journey/BackButton";
 import { BigButton, BigLink } from "@/components/journey/BigButton";
 import { compressImage } from "@/lib/journey/images";
 import { uploadMemory } from "@/lib/journey/memories";
-import { useJourney } from "@/lib/journey/store";
+import { useJourney } from "@/lib/journey/journey-context";
 
 export const Route = createFileRoute("/add-memory")({
   validateSearch: (search: Record<string, unknown>) => ({

@@ -5,7 +5,7 @@ import { AppShell, BrandHeader, ConnectionStatus, PoweredByTapp } from "@/compon
 import { BackButton } from "@/components/journey/BackButton";
 import { BigButton, BigLink } from "@/components/journey/BigButton";
 import { InstallWindsongAction } from "@/components/journey/InstallWindsong";
-import { useJourney } from "@/lib/journey/store";
+import { useJourney } from "@/lib/journey/journey-context";
 
 export const Route = createFileRoute("/more")({
   head: () => ({

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { useJourney } from "@/lib/journey/store";
+import { useJourney } from "@/lib/journey/journey-context";
 
 const DISMISSED_KEY = "windsong-dismissed-updates";
 

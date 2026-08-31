@@ -4,7 +4,7 @@ import { AppShell, BrandHeader, PoweredByTapp } from "@/components/journey/AppSh
 import { BackButton } from "@/components/journey/BackButton";
 import { BigLink } from "@/components/journey/BigButton";
 import { resolveImage } from "@/lib/journey/images";
-import { useJourney } from "@/lib/journey/store";
+import { useJourney } from "@/lib/journey/journey-context";
 
 export const Route = createFileRoute("/profile")({
   head: () => ({
