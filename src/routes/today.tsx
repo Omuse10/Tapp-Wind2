@@ -5,7 +5,7 @@ import { AppShell, BrandHeader, PoweredByTapp } from "@/components/journey/AppSh
 import { BackButton } from "@/components/journey/BackButton";
 import { BigButton, BigLink } from "@/components/journey/BigButton";
 import { LocationDialog } from "@/components/journey/LocationDialog";
-import { formatLongDate, useJourney } from "@/lib/journey/store";
+import { formatLongDateFromDate, useCurrentDate, useJourney } from "@/lib/journey/store";
 import type { LocationRecord } from "@/lib/journey/types";
 
 export const Route = createFileRoute("/today")({
@@ -22,6 +22,7 @@ export const Route = createFileRoute("/today")({
 
 function Today() {
   const { today, todayItems, locationById } = useJourney();
+  const now = useCurrentDate();
   const [open, setOpen] = useState<LocationRecord | null>(null);
 
   return (
@@ -30,7 +31,7 @@ function Today() {
       <BackButton />
       <header className="px-6 pt-8">
         <h1 className="font-display text-4xl font-semibold tracking-tight text-ink">TODAY</h1>
-        <p className="mt-2 text-xl text-muted-foreground">{formatLongDate(today.date)}</p>
+        <p className="mt-2 text-xl text-muted-foreground">{formatLongDateFromDate(now)}</p>
       </header>
 
       <ol className="mt-6 space-y-4 px-6">

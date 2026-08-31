@@ -2,9 +2,8 @@ import type { JourneyData } from "./types";
 
 export const TODAY_FALLBACK = "2026-08-11";
 
-export function todayISO() {
-  const d = new Date();
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+export function todayISO(date = new Date()) {
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
 }
 
 export const seed: JourneyData = {
@@ -228,7 +227,16 @@ export const seed: JourneyData = {
       about: "Joseph has driven Windsong groups across Kenya for nine years.",
     },
   ],
-  updates: [],
+  updates: [
+    {
+      id: "upd-welcome",
+      tripId: "trip-africa-2026",
+      title: "Welcome to Kenya",
+      message: "We’re excited to have you with us. Please keep your camera ready for a big day of wildlife and adventure.",
+      publishedAt: new Date().toISOString(),
+      expiresAt: new Date(Date.now() + 12 * 60 * 60 * 1000).toISOString(),
+    },
+  ],
   syncQueue: [],
   visits: [],
   meGuestId: null,

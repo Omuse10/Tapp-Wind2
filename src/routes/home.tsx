@@ -12,7 +12,7 @@ import {
 import { BigLink } from "@/components/journey/BigButton";
 import { TodaysUpdateCard, TodaysUpdatePopup } from "@/components/journey/TodaysUpdate";
 import { WordOfTheDay } from "@/components/journey/WordOfTheDay";
-import { formatLongDate, greeting, useJourney } from "@/lib/journey/store";
+import { formatLongDateFromDate, greeting, useCurrentDate, useJourney } from "@/lib/journey/store";
 
 export const Route = createFileRoute("/home")({
   head: () => ({
@@ -44,11 +44,12 @@ function Home() {
     if (ready && !me) navigate({ to: "/", replace: true });
   }, [ready, me, navigate]);
 
+  const now = useCurrentDate();
   const [hello, setHello] = useState<{ text: string; emoji: string }>({
     text: "Hello",
     emoji: "👋",
   });
-  useEffect(() => setHello(greeting()), []);
+  useEffect(() => setHello(greeting(now)), [now]);
 
   const guide = data.guides[0];
   const first = todayItems[0];
@@ -63,7 +64,7 @@ function Home() {
           <h1 className="font-display text-4xl font-semibold text-ink">
             {hello.text}, {me?.name ?? "friend"} {hello.emoji}
           </h1>
-          <p className="mt-2 text-lg text-muted-foreground">{formatLongDate(today.date)}</p>
+          <p className="mt-2 text-lg text-muted-foreground">{formatLongDateFromDate(now)}</p>
         </div>
 
         <section className="rounded-3xl bg-card p-6 shadow-[var(--shadow-card)]">

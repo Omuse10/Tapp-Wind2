@@ -40,7 +40,7 @@ function migrate(parsed: Partial<JourneyData> & { guide?: Guide }): JourneyData 
   }
   next.guides = next.guides ?? seed.guides;
   next.drivers = next.drivers ?? seed.drivers;
-  next.updates = next.updates ?? [];
+  next.updates = next.updates && next.updates.length > 0 ? next.updates : seed.updates;
   next.syncQueue = next.syncQueue ?? [];
   next.visits = next.visits ?? [];
   return next;
@@ -133,6 +133,7 @@ export function JourneyProvider({ children }: { children: ReactNode }) {
   const [ready, setReady] = useState(false);
   const [online, setOnline] = useState(true);
   const [syncing, setSyncing] = useState(false);
+  const now = useCurrentDate();
   const visitLogged = useRef(false);
 
   const update = useCallback((fn: (draft: JourneyData) => JourneyData) => {
@@ -230,13 +231,13 @@ export function JourneyProvider({ children }: { children: ReactNode }) {
   );
 
   const today = useMemo(() => {
-    const iso = todayISO();
+    const iso = todayISO(now);
     return (
       data.days.find((d) => d.date === iso) ??
       data.days.find((d) => d.date === TODAY_FALLBACK) ??
       (data.days[0] as ItineraryDay)
     );
-  }, [data.days]);
+  }, [data.days, now]);
 
   const todayItems = useMemo(
     () => data.items.filter((i) => i.dayId === today?.id),
@@ -244,11 +245,11 @@ export function JourneyProvider({ children }: { children: ReactNode }) {
   );
 
   const wordOfTheDay = useMemo(() => {
-    const iso = todayISO();
+    const iso = todayISO(now);
     const match = data.words.find((w) => w.date === iso);
     if (match) return match;
     return (data.words.find((w) => w.date === TODAY_FALLBACK) ?? data.words[0]) as DailyWord;
-  }, [data.words]);
+  }, [data.words, now]);
 
   const activeUpdate = useMemo(() => {
     if (!ready) return null;
@@ -469,9 +470,25 @@ export function useJourney() {
   return ctx;
 }
 
+export function useCurrentDate() {
+  const [now, setNow] = useState(() => new Date());
+
+  useEffect(() => {
+    const tick = () => setNow(new Date());
+    const interval = window.setInterval(tick, 60_000);
+    return () => window.clearInterval(interval);
+  }, []);
+
+  return now;
+}
+
+export function formatLongDateFromDate(date: Date) {
+  return date.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
+}
+
 export function formatLongDate(iso: string) {
   const d = new Date(`${iso}T12:00:00`);
-  return d.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
+  return formatLongDateFromDate(d);
 }
 
 export function formatShortDate(isoDateTime: string) {
@@ -479,8 +496,8 @@ export function formatShortDate(isoDateTime: string) {
   return d.toLocaleDateString("en-GB", { day: "numeric", month: "long" });
 }
 
-export function greeting() {
-  const h = new Date().getHours();
+export function greeting(date = new Date()) {
+  const h = date.getHours();
   if (h < 12) return { text: "Good morning", emoji: "☀️" };
   if (h < 18) return { text: "Good afternoon", emoji: "🌤️" };
   return { text: "Good evening", emoji: "🌙" };
