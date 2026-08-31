@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 import { PoweredByTapp } from "@/components/journey/AppShell";
 import { signInStaff, useStaffSession } from "@/lib/staff/auth";
+import logo from "@/assets/wind2-.png";
 
 export const Route = createFileRoute("/staff-login")({
   ssr: false,
@@ -47,7 +48,11 @@ function StaffLogin() {
   return (
     <div className="min-h-dvh bg-secondary/40">
       <header className="border-b border-border bg-ink px-6 py-5 text-primary-foreground">
-        <p className="text-sm font-bold tracking-[0.25em] uppercase opacity-80">Windsong Travel</p>
+        <img
+          src={logo}
+          alt="Windsong Travel"
+          className="h-12 w-auto rounded-lg bg-card/90 object-contain px-3 py-1"
+        />
         <h1 className="font-display mt-1 text-3xl font-semibold">Staff area</h1>
       </header>
 

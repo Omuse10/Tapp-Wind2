@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { PoweredByTapp } from "@/components/journey/AppShell";
 import { BigButton } from "@/components/journey/BigButton";
 import heroImg from "@/assets/hero-savanna.jpg";
+import logo from "@/assets/wind2-.png";
 import { useJourney } from "@/lib/journey/store";
 
 export const Route = createFileRoute("/")({
@@ -57,9 +58,11 @@ function Welcome() {
         </div>
 
         <div className="-mt-10 px-6 text-center">
-          <h1 className="font-display text-3xl font-semibold tracking-[0.2em] text-ink uppercase">
-            Windsong Travel
-          </h1>
+          <img
+            src={logo}
+            alt="Windsong Travel"
+            className="mx-auto h-24 w-auto object-contain"
+          />
           <p className="mt-2 text-lg font-bold tracking-[0.35em] text-primary uppercase">Africa 2026</p>
           <p className="font-display mt-4 text-2xl text-muted-foreground italic">
             Your journey. Your memories.
